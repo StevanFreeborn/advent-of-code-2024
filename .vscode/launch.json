@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch (console)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/01/HistorianHysteria/bin/Debug/net9.0/HistorianHysteria.dll",
+      "args": [
+        "${input:inputFilePath}"
+      ],
+      "cwd": "${workspaceFolder}/01/HistorianHysteria",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "inputFilePath",
+      "type": "promptString",
+      "description": "File path to puzzle input",
+      "default": "../INPUT.txt"
+    }
+  ]
+}
