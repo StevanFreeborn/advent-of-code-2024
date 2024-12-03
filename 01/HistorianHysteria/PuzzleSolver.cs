@@ -1,3 +1,5 @@
+namespace HistorianHysteria;
+
 class PuzzleSolver
 {
   public int CalculateTotalDistance(List<int> left, List<int> right)
