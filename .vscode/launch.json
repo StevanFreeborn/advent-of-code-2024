@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": ".NET Core Launch (console)",
+      "name": "Day 1",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -11,6 +11,20 @@
         "${input:inputFilePath}"
       ],
       "cwd": "${workspaceFolder}/01/HistorianHysteria",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Day 2",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/02/RedNosedReports/bin/Debug/net9.0/RedNosedReports.dll",
+      "args": [
+        "${input:inputFilePath}",
+        "part2"
+      ],
+      "cwd": "${workspaceFolder}/02/RedNosedReports",
       "console": "integratedTerminal",
       "stopAtEntry": false
     },
