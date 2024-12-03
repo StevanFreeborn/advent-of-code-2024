@@ -74,10 +74,16 @@ public class ReportTests
     var reportOne = new Report([1, 3, 2, 4, 5]);
     var reportTwo = new Report([8, 6, 4, 4, 1]);
     var reportThree = new Report([19, 21, 24, 27, 24]);
+    var reportFour = new Report([6, 6, 9, 10, 11, 13]);
+    var reportFive = new Report([41, 43, 44, 45, 47, 49]);
+    var reportSix = new Report([43, 41, 43, 44, 45, 47, 49]);
 
     await Assert.That(reportOne.IsSafeWithProblemDampener()).IsEqualTo(true);
     await Assert.That(reportTwo.IsSafeWithProblemDampener()).IsEqualTo(true);
     await Assert.That(reportThree.IsSafeWithProblemDampener()).IsEqualTo(true);
+    await Assert.That(reportFour.IsSafeWithProblemDampener()).IsEqualTo(true);
+    await Assert.That(reportFive.IsSafeWithProblemDampener()).IsEqualTo(true);
+    await Assert.That(reportSix.IsSafeWithProblemDampener()).IsEqualTo(true);
   }
 
   [Test]
@@ -95,8 +101,12 @@ public class ReportTests
   {
     var reportOne = new Report([1, 2, 7, 8, 9]);
     var reportTwo = new Report([9, 7, 6, 2, 1]);
+    var reportThree = new Report([28, 28, 31, 34, 36, 37, 40, 45]);
+    var reportFour = new Report([13, 15, 18, 23, 26, 33]);
 
     await Assert.That(reportOne.IsSafeWithProblemDampener()).IsEqualTo(false);
     await Assert.That(reportTwo.IsSafeWithProblemDampener()).IsEqualTo(false);
+    await Assert.That(reportThree.IsSafeWithProblemDampener()).IsEqualTo(false);
+    await Assert.That(reportFour.IsSafeWithProblemDampener()).IsEqualTo(false);
   }
 }
