@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 
+using MullItOver;
+
 if (args.Length is 0)
 {
   Console.WriteLine("Please provide a path to the input file.");
@@ -18,21 +20,13 @@ var input = await File.ReadAllTextAsync(args[0]);
 var stopwatch = new Stopwatch();
 stopwatch.Start();
 
-var instructions = new PuzzleParser().Parse(input);
+var parser = new PuzzleParser();
 
-var results = 0;
+var instructions = isPart2 
+  ? parser.ParseWithConditionals(input)
+  : parser.Parse(input);
+
+var results = instructions.Execute();
 
 stopwatch.Stop();
 Console.WriteLine($"The sum of instructions is {results}. ({stopwatch.ElapsedMilliseconds}ms)");
-
-class PuzzleParser
-{
-  public List<Instruction> Parse(string input)
-  {
-    return [];
-  }
-}
-
-class Instruction(int multiplicandOne, int multiplicandTwo)
-{
-}
