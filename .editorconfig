@@ -3,6 +3,8 @@ root = true
 # All files
 [*]
 indent_style = space
+indent_size = 2
+tab_width = 2
 
 # Xml files
 [*.xml]
@@ -12,10 +14,6 @@ indent_size = 2
 [*.cs]
 
 #### Core EditorConfig Options ####
-
-# Indentation and spacing
-indent_size = 2
-tab_width = 2
 
 # New line preferences
 insert_final_newline = false

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="UserContentModel">
+    <attachedFolders />
+    <explicitIncludes>
+      <Path>.gitignore</Path>
+      <Path>01/INPUT.txt</Path>
+      <Path>01/PROBLEM.md</Path>
+      <Path>02/INPUT.txt</Path>
+      <Path>02/PROBLEM.md</Path>
+      <Path>04/INPUT.txt</Path>
+      <Path>04/PROBLEM.md</Path>
+      <Path>05/PROBLEM.md</Path>
+      <Path>README.md</Path>
+    </explicitIncludes>
+    <explicitExcludes />
+  </component>
+</project>

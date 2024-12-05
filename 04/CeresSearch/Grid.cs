@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace CeresSearch;
+﻿namespace CeresSearch;
 
 record Direction(int XOffset, int YOffset)
 {
@@ -110,7 +108,7 @@ class Grid(string[] input)
     return IsValidXmas(xmasMap);
   }
 
-  private bool IsValidXmas(Dictionary<Direction, char> map)
+  private static bool IsValidXmas(Dictionary<Direction, char> map)
   {
     var upToTheRight = map[Direction.UpToTheRight];
     var downToTheLeft = map[Direction.DownToTheLeft];

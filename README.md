@@ -42,9 +42,9 @@ dotnet build
 
 ## Challenges
 
-| Day | Problem                    |              Solution               | Notes                                                                                        |
-|-----|----------------------------|:-----------------------------------:|----------------------------------------------------------------------------------------------|
+| Day | Problem                    | Solution                            | Notes                                                                                        |
+|-----|----------------------------|-------------------------------------|----------------------------------------------------------------------------------------------|
 | 01  | [Problem](./01/PROBLEM.md) | [Solution](./01/HistorianHysteria/) | A great way to start!                                                                        |
-| 02  | [Problem](./02/PROBLEM.md) |  [Solution](./02/RedNosedReports/)  | Damn their was an edge case that really bit me...direction change after first pair of levels |
-| 03  | [Problem](./03/PROBLEM.md) |    [Solution](./03/MullItOver/)     | Thank goodness this wasn't a repeat of day 2.                                                |
-| 04  | [Problem](./04/PROBLEM.md) |    [Solution](./04/CeresSearch/)    | This was fun! Definitely was able to see the growth in my abilities here.                    |
+| 02  | [Problem](./02/PROBLEM.md) | [Solution](./02/RedNosedReports/)   | Damn their was an edge case that really bit me...direction change after first pair of levels |
+| 03  | [Problem](./03/PROBLEM.md) | [Solution](./03/MullItOver/)        | Thank goodness this wasn't a repeat of day 2.                                                |
+| 04  | [Problem](./04/PROBLEM.md) | [Solution](./04/CeresSearch/)       | This was fun! Definitely was able to see the growth in my abilities here.                    |

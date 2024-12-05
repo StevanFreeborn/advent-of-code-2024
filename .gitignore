@@ -406,7 +406,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-.idea/
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/shelf/
 
 ##
 ## Visual studio for Mac
