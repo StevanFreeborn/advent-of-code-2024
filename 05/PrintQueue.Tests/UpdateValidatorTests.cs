@@ -47,56 +47,52 @@ public class UpdateValidatorTests
   }
 
   [Test]
-  public async Task Validate_WhenGivenValidUpdate_ItShouldReturnTrue()
+  [MethodDataSource(nameof(TestCases))]
+  public async Task Validate_WhenUpdate_ItShouldReturnExpectedResult(TestCase testCase)
   {
-    var updateOne = new Update([75, 47, 61, 53, 29]);
-    var updateTwo = new Update([97,61,53,29,13]);
-    var updateThree = new Update([75,29,13]);
+    var update = new Update(testCase.Pages);
 
     var validator = new UpdateValidator(_exampleRules);
     
-    var resultOne = validator.Validate(updateOne);
-    var resultTwo = validator.Validate(updateTwo);
-    var resultThree = validator.Validate(updateThree);
+    var result = validator.Validate(update);
     
-    await Assert.That(resultOne).IsTrue();
-    await Assert.That(resultTwo).IsTrue();
-    await Assert.That(resultThree).IsTrue();
+    await Assert.That(result).IsEquivalentTo(testCase.ExpectedValidateResult);
   }
 
   [Test]
-  public async Task Validate_WhenGivenInvalidUpdate_ItShouldReturnFalse()
+  [MethodDataSource(nameof(TestCases))]
+  public async Task Sort_WhenGivenUpdate_ItShouldReturnUpdateSorted(TestCase testCase)
   {
-    var updateOne = new Update([75,97,47,61,53]);
-    var updateTwo = new Update([61,13,29]);
-    var updateThree = new Update([97,13,75,29,47]);
+    var update = new Update(testCase.Pages);
 
     var validator = new UpdateValidator(_exampleRules);
     
-    var resultOne = validator.Validate(updateOne);
-    var resultTwo = validator.Validate(updateTwo);
-    var resultThree = validator.Validate(updateThree);
-    
-    await Assert.That(resultOne).IsFalse();
-    await Assert.That(resultTwo).IsFalse();
-    await Assert.That(resultThree).IsFalse();
-  }
+    var result = validator.Sort(update);
 
-  [Test]
-  public async Task Sort_WhenGivenInvalidUpdate_ItShouldReturnNewUpdateSorted()
+    await Assert.That(result).IsEquivalentTo(new Update(testCase.SortedPages));
+  }
+  
+  public static IEnumerable<Func<TestCase>> TestCases()
   {
-    var updateOne = new Update([75,97,47,61,53]);
-    var updateTwo = new Update([61,13,29]);
-    var updateThree = new Update([97,13,75,29,47]);
-
-    var validator = new UpdateValidator(_exampleRules);
-    
-    var resultOne = validator.Sort(updateOne);
-    var resultTwo = validator.Sort(updateTwo);
-    var resultThree = validator.Sort(updateThree);
-
-    await Assert.That(resultOne).IsEquivalentTo(new Update([97,75,47,61,53]));
-    await Assert.That(resultTwo).IsEquivalentTo(new Update([61,29,13]));
-    await Assert.That(resultThree).IsEquivalentTo(new Update([97,75,47,29,13]));
+    yield return () =>
+    {
+      List<int> pages = [ 75, 47, 61, 53, 29 ];
+      return new TestCase(pages, true, pages);
+    };
+    yield return () =>
+    {
+      List<int> pages = [ 97,61,53,29,13 ];
+      return new TestCase(pages, true, pages);
+    };
+    yield return () =>
+    {
+      List<int> pages = [ 75,29,13 ];
+      return new TestCase(pages, true, pages);
+    };
+    yield return () => new TestCase([75,97,47,61,53], false, [97,75,47,61,53]);
+    yield return () => new TestCase([61,13,29], false, [61,29,13]);
+    yield return () => new TestCase([97,13,75,29,47], false, [97,75,47,29,13]);
   }
+    
+  public record TestCase(List<int> Pages, bool ExpectedValidateResult, List<int> SortedPages);
 }

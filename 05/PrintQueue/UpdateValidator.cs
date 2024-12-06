@@ -22,8 +22,6 @@ class UpdateValidator
     }
   }
   
-  // NOTE: This is basically a bubble sort
-  // 
   public Update Sort(Update update)
   {
     var sortedUpdate = new Update(update.Pages.ToList());
