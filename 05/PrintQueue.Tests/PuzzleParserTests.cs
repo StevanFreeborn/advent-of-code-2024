@@ -73,4 +73,22 @@ public class PuzzleParserTests
 
     await Assert.That(result).IsEqualTo(6260);
   }
+  
+  [Test]
+  public async Task Parse_WhenGivenPuzzleInputOnPart2_ItShouldReturnExpectedResult()
+  {
+    var input = await GetPuzzleInput();
+
+    var parseResult = _puzzleParser.Parse(input);
+    
+    var validator = new UpdateValidator(parseResult.Rules);
+
+    var result = parseResult.Updates
+      .Where(u => validator.Validate(u) is false)
+      .Select(u => validator.Sort(u))
+      .Select(u => u.GetMiddlePage())
+      .Sum();
+
+    await Assert.That(result).IsEqualTo(5346);
+  }
 }

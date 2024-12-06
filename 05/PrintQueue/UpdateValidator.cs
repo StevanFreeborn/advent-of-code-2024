@@ -21,6 +21,30 @@ class UpdateValidator
       Graph[rule.X].Add(rule.Y);
     }
   }
+
+  public Update Sort(Update update)
+  {
+    var sortedUpdate = new Update(update.Pages.ToList());
+
+    while (Validate(sortedUpdate) is false)
+    {
+      for (var i = 0; i < sortedUpdate.Pages.Count - 1; i++)
+      {
+        var currentPage = sortedUpdate.Pages[i];
+        var nextPage = sortedUpdate.Pages[i + 1];
+
+        if (IsOutOfOrder(currentPage, nextPage) is false)
+        {
+          continue;
+        }
+
+        sortedUpdate.Pages[i] = nextPage;
+        sortedUpdate.Pages[i + 1] = currentPage;
+      }
+    }
+
+    return sortedUpdate;
+  }
   
   public bool Validate(Update update)
   {
@@ -28,20 +52,20 @@ class UpdateValidator
     
     foreach (var page in update.Pages)
     {
-      foreach (var previousPage in previousPages)
+      if (previousPages.Any(previousPage => IsOutOfOrder(previousPage, page)))
       {
-        if (
-          Graph.TryGetValue(previousPage, out HashSet<int>? value) &&
-          value.Contains(page) is false
-        )
-        {
-          return false;
-        }
+        return false;
       }
-      
+
       previousPages.Add(page);
     }
     
     return true;
+  }
+
+  private bool IsOutOfOrder(int previousPage, int futurePage)
+  {
+    return Graph.TryGetValue(previousPage, out var dependents) &&
+           dependents.Contains(futurePage) is false;
   }
 }

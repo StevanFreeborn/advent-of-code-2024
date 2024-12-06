@@ -81,4 +81,22 @@ public class UpdateValidatorTests
     await Assert.That(resultTwo).IsFalse();
     await Assert.That(resultThree).IsFalse();
   }
+
+  [Test]
+  public async Task Sort_WhenGivenInvalidUpdate_ItShouldReturnNewUpdateSorted()
+  {
+    var updateOne = new Update([75,97,47,61,53]);
+    var updateTwo = new Update([61,13,29]);
+    var updateThree = new Update([97,13,75,29,47]);
+
+    var validator = new UpdateValidator(_exampleRules);
+    
+    var resultOne = validator.Sort(updateOne);
+    var resultTwo = validator.Sort(updateTwo);
+    var resultThree = validator.Sort(updateThree);
+
+    await Assert.That(resultOne).IsEquivalentTo(new Update([97,75,47,61,53]));
+    await Assert.That(resultTwo).IsEquivalentTo(new Update([61,29,13]));
+    await Assert.That(resultThree).IsEquivalentTo(new Update([97,75,47,29,13]));
+  }
 }
