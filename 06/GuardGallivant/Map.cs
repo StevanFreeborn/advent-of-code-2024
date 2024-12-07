@@ -28,14 +28,16 @@ class Map
   public int IdentifyNumberOfPlacementsForNewObstruction()
   {
     var count = 0;
-    
-    WalkMap((rowIndex, columnIndex) =>
+
+    var guardPathPositions = GetDistinctGuardPositions();
+
+    foreach (var (columnIndex, rowIndex) in guardPathPositions)
     {
       var currentCharacter = _input[rowIndex][columnIndex];
 
       if (IsGuard(currentCharacter) || IsBlocked(currentCharacter))
       {
-        return;
+        continue;
       }
 
       var mapWithNewObstruction = _input.ToArray();
@@ -49,7 +51,7 @@ class Map
       {
         count++;
       }
-    });
+    }
 
     return count;
   }
@@ -95,9 +97,12 @@ class Map
     }
   }
   
-  public int PredictDistinctPositionsCount()
+  public int PredictDistinctPositionsCount() => GetDistinctGuardPositions().Count;
+
+  private HashSet<(int x, int y)> GetDistinctGuardPositions()
   {
     var currentGuardPosition = GetGuardPosition();
+    
     var uniquePositions = new HashSet<(int x, int y)>()
     {
       (currentGuardPosition.ColumnIndex, currentGuardPosition.RowIndex),
@@ -129,7 +134,7 @@ class Map
       uniquePositions.Add((currentGuardPosition.ColumnIndex, currentGuardPosition.RowIndex));
     }
 
-    return uniquePositions.Count;
+    return uniquePositions;
   }
   
   private GuardPosition GetGuardPosition()
