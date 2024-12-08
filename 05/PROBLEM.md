@@ -81,7 +81,7 @@ Of course, you'll need to be careful: the actual list of _page ordering rules_ i
 
 Determine which updates are already in the correct order. _What do you get if you add up the middle page number from those correctly-ordered updates?_
 
-# --- Part Two ---
+## --- Part Two ---
 
 While the Elves get to work printing the correctly-ordered updates, you have a little time to fix the rest of them.
 

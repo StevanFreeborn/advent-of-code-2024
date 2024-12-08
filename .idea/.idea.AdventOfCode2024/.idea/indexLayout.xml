@@ -12,6 +12,7 @@
       <Path>04/PROBLEM.md</Path>
       <Path>05/PROBLEM.md</Path>
       <Path>06</Path>
+      <Path>08</Path>
       <Path>README.md</Path>
     </explicitIncludes>
     <explicitExcludes />

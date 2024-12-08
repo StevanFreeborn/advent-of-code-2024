@@ -19,12 +19,6 @@ class Map
     _input = input;
   }
   
-  // TODO: This can be optimized I think.
-  // Right now I'm basically doing a flood fill...I think
-  // I'm finding all the places on the map where I can
-  // place the obstruction, placing, and then seeing if
-  // a loop is created when guard patrols map.
-  // IDEA: Only check places on the guard's path
   public int IdentifyNumberOfPlacementsForNewObstruction()
   {
     var count = 0;
