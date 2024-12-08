@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 
+using BridgeRepair;
+
 if (args.Length is 0)
 {
   Console.WriteLine("Please provide a path to the input file.");
@@ -18,7 +20,9 @@ var input = await File.ReadAllLinesAsync(args[0]);
 var stopwatch = new Stopwatch();
 stopwatch.Start();
 
-// TODO: Implement solution
+var result = new PuzzleParser().Parse(input)
+  .Where(e => e.IsPossible(isPart2))
+  .Sum(e => e.TestValue);
 
 stopwatch.Stop();
-Console.WriteLine($". ({stopwatch.ElapsedMilliseconds}ms)");
+Console.WriteLine($"The sum of the test value for possible equations is {result}. ({stopwatch.ElapsedMilliseconds}ms)");

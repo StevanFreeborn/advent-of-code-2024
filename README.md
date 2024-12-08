@@ -50,3 +50,4 @@ dotnet build
 | 04  | [Problem](./04/PROBLEM.md) | [Solution](./04/CeresSearch/)       | This was fun! Definitely was able to see the growth in my abilities here.                    |
 | 05  | [Problem](./05/PROBLEM.md) | [Solution](./05/PrintQueue/)        | A graph to the rescue!                                                                       |
 | 06  | [Problem](./06/PROBLEM.md) | [Solution](./06/GuardGallivant/)    | I kind of brute forced part two...                                                           |
+| 07  | [Problem](./07/PROBLEM.md) | [Solution](./07/BridgeRepair/)      | Not perfect or pretty, but good enough                                                       |
