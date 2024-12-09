@@ -24,6 +24,7 @@ stopwatch.Stop();
 Console.WriteLine($"The number of antinode locations is {result}. ({stopwatch.ElapsedMilliseconds}ms)");
 
 // TODO: Make this better...it is ugly
+// TODO: Add tests for actual input and corresponding solution
 static class AntennaGroupingsExtensions
 {
   public static List<Point> GetAntinodes(this List<IGrouping<char,Antenna>> groupings, string[] input, bool isPart2 = false)
