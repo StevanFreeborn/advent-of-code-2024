@@ -1,5 +1,8 @@
 {
   "editor.formatOnSave": true,
   "dotnet.defaultSolution": "../AdventOfCode2024.sln",
-  "dotnet.testWindow.useTestingPlatformProtocol": true
+  "dotnet.testWindow.useTestingPlatformProtocol": true,
+  "cSpell.words": [
+    "Fragmenter"
+  ]
 }
