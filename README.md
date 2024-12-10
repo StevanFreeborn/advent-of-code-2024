@@ -52,3 +52,4 @@ dotnet build
 | 06  | [Problem](./06/PROBLEM.md) | [Solution](./06/GuardGallivant/)       | I kind of brute forced part two...                                                                     |
 | 07  | [Problem](./07/PROBLEM.md) | [Solution](./07/BridgeRepair/)         | Not perfect or pretty, but good enough                                                                 |
 | 08  | [Problem](./08/PROBLEM.md) | [Solution](./08/ResonantCollinearity/) | Without some help from chat I don't know where I'd be...to be fair the description kind of mislead me. |
+| 09  | [Problem](./09/PROBLEM.md) | [Solution](./09/DiskFragmenter/)       | Doing things with indexes is error prone.                                                              |
