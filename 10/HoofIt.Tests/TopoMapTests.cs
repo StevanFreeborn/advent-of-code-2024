@@ -13,6 +13,11 @@ public class TopoMapTests
     "10456732",
   ];
   
+  private async Task<string[]> GetPuzzleInput()
+  {
+    return await File.ReadAllLinesAsync(Path.Combine(AppContext.BaseDirectory, "INPUT.txt"));
+  }
+  
   [Test]
   public async Task From_WhenCalled_ItShouldReturnNewInstanceOfTopoMap()
   {
@@ -22,7 +27,7 @@ public class TopoMapTests
   }
 
   [Test]
-  public async Task GetTrailHeadScores_WhenCalledWithExampleInput_ItShouldReturnExpectedValues()
+  public async Task GetTrailheadScores_WhenCalledWithExampleInput_ItShouldReturnExpectedValues()
   {
     var expectedValues = new List<int>()
     {
@@ -37,8 +42,51 @@ public class TopoMapTests
       5,
     };
 
-    var result = TopoMap.From(_exampleInput).GetTrailHeadScores();
+    var result = TopoMap.From(_exampleInput).GetTrailheadScores();
     
-    await Assert.That(result).IsEqualTo(36);
+    await Assert.That(result).IsEquivalentTo(expectedValues);
+    await Assert.That(result.Sum()).IsEqualTo(36);
+  }
+
+  [Test]
+  public async Task PartOne_WhenGivenPuzzleInput_ItShouldReturnExpectedValue()
+  {
+    var input = await GetPuzzleInput();
+
+    var result = TopoMap.From(input).GetTrailheadScores().Sum();
+
+    await Assert.That(result).IsEqualTo(496);
+  }
+  
+  [Test]
+  public async Task GetTrailheadRatings_WhenCalledWithExampleInput_ItShouldReturnExpectedValues()
+  {
+    var expectedValues = new List<int>()
+    {
+      20,
+      24,
+      10,
+      4,
+      1,
+      4,
+      5,
+      8,
+      5,
+    };
+
+    var result = TopoMap.From(_exampleInput).GetTrailheadRatings();
+    
+    await Assert.That(result).IsEquivalentTo(expectedValues);
+    await Assert.That(result.Sum()).IsEqualTo(81);
+  }
+  
+  [Test]
+  public async Task PartTwo_WhenGivenPuzzleInput_ItShouldReturnExpectedValue()
+  {
+    var input = await GetPuzzleInput();
+
+    var result = TopoMap.From(input).GetTrailheadRatings().Sum();
+
+    await Assert.That(result).IsEqualTo(1120);
   }
 }
