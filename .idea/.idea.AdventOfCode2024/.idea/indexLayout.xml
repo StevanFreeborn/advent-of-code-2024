@@ -16,6 +16,7 @@
       <Path>09/INPUT.txt</Path>
       <Path>09/PROBLEM.md</Path>
       <Path>10</Path>
+      <Path>12</Path>
       <Path>README.md</Path>
     </explicitIncludes>
     <explicitExcludes />
