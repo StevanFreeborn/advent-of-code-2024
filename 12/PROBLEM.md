@@ -92,7 +92,7 @@ So, it has a total price of `_1930_`.
 
 _What is the total price of fencing all regions on your map?_
 
-## --- Part Two ---
+# --- Part Two ---
 
 Fortunately, the Elves are trying to order so much fence that they qualify for a _bulk discount_!
 

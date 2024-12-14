@@ -55,3 +55,4 @@ dotnet build
 | 09  | [Problem](./09/PROBLEM.md) | [Solution](./09/DiskFragmenter/)       | Doing things with indexes is error prone.                                                              |
 | 10  | [Problem](./10/PROBLEM.md) | [Solution](./10/HoofIt/)               | I recognized the solution for this based on pattern from last year. Solved using BFS.                  |
 | 11  | [Problem](./11/PROBLEM.md) | [Solution](./11/PlutonianPebbles/)     | Dictionary > List                                                                                      |
+| 12  | [Problem](./12/PROBLEM.md) | [Solution](./12/GardenGroups/)         | CORNERS == SIDES                                                                                       |
