@@ -18,6 +18,7 @@
       <Path>10</Path>
       <Path>12</Path>
       <Path>13</Path>
+      <Path>14</Path>
       <Path>README.md</Path>
     </explicitIncludes>
     <explicitExcludes />
