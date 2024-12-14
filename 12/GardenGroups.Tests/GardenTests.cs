@@ -2,6 +2,31 @@
 
 public class GardenTests
 {
+  private async Task<string[]> GetPuzzleInput()
+  {
+    return await File.ReadAllLinesAsync(Path.Combine(AppContext.BaseDirectory, "INPUT.txt"));
+  }
+  
+  [Test]
+  public async Task CalculateFencePriceBasedOnSides_WhenCalledWithPuzzleInput_ItShouldReturnExpectedValue()
+  {
+    var input = await GetPuzzleInput();
+    var garden = Garden.From(input);
+    var result = garden.CalculateFencePriceBasedOnSides();
+
+    await Assert.That(result).IsEqualTo(851994);
+  }
+
+  [Test]
+  public async Task CalculateFencePriceBasedOnPerimeter_WhenCalledWithPuzzleInput_ItShouldReturnExpectedValue()
+  {
+    var input = await GetPuzzleInput();
+    var garden = Garden.From(input);
+    var result = garden.CalculateFencePriceBasedOnPerimeter();
+
+    await Assert.That(result).IsEqualTo(1400386);
+  }
+  
   [Test]
   [MethodDataSource(nameof(CalculateFencePriceBasedOnPerimeterTestCases))]
   public async Task CalculateFencePriceBasedOnPerimeter_WhenCalled_ItShouldReturnExpectedValue(CalculateFencePriceTestCase testCase)
