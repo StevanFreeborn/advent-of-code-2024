@@ -31,4 +31,15 @@ public class RegionTests
 
     await Assert.That(result).IsEqualTo(0);
   }
+
+  [Test]
+  public async Task AddPosition_WhenCalled_ItShouldAddAPosition()
+  {
+    var region = Region.From('A');
+    
+    region.AddPosition(new(0, 0, 'A'));
+
+    await Assert.That(region.Positions).IsEquivalentTo(new HashSet<Position>() { new(0, 0, 'A') });
+    await Assert.That(region.Area).IsEqualTo(1);
+  }
 }
