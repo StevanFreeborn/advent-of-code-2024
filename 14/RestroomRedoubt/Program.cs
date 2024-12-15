@@ -20,7 +20,7 @@ var input = await File.ReadAllLinesAsync(args[0]);
 var stopwatch = new Stopwatch();
 stopwatch.Start();
 
-var result = Simulation.From(101, 103, input).Run(100);
+var result = Simulation.From(101, 103, input).Run(101 * 103);
 
 stopwatch.Stop();
 Console.WriteLine($"The safety factor will be {result}. ({stopwatch.ElapsedMilliseconds}ms)");
@@ -31,6 +31,9 @@ class Simulation
   private readonly int _width;
   private readonly int _height;
   private readonly List<Quadrant> _quadrants;
+  private List<int> RobotsPerQuadrant =>
+    _quadrants.Select(quadrant => _robots.Count(r => r.IsIn(quadrant))).ToList();
+  private int SafetyFactor => RobotsPerQuadrant.Aggregate(1, (current, count) => current * count);
 
   private Simulation(int width, int height, List<Robot> robots)
   {
@@ -58,13 +61,9 @@ class Simulation
       {
         robot.Move(_width, _height);
       }
-      
-      // Debug(i);
     }
-
-    return _quadrants
-      .Select(quadrant => _robots.Count(r => r.IsIn(quadrant)))
-      .Aggregate(1, (current, count) => current * count);
+    
+    return SafetyFactor;
   }
 
   public override string ToString()
@@ -77,14 +76,7 @@ class Simulation
       
       for (int currentRow = 0; currentRow < _height; currentRow++)
       {
-        if (_robots.Any(r => r.IsIn(currentColumn, currentRow)))
-        {
-          row.Append('R');
-        }
-        else
-        {
-          row.Append('.');
-        }
+        row.Append(_robots.Any(r => r.IsIn(currentColumn, currentRow)) ? 'R' : '.');
       }
 
       lines.AppendLine(row.ToString());
@@ -92,12 +84,17 @@ class Simulation
 
     return lines.ToString();
   }
+
+  public void PrintToConsole() => Console.WriteLine(ToString());
+
+  public Task PrintToFileAsync(string filename) =>
+    File.WriteAllTextAsync(Path.Combine(AppContext.BaseDirectory, filename), ToString());
 }
 
 partial record Robot
 {
-  private int PositionX { get; set; }
-  private int PositionY { get; set; }
+  public int PositionX { get; private set; }
+  public int PositionY { get; private set; }
   private int VelocityX { get; }
   private int VelocityY { get; }
 
