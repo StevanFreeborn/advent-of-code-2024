@@ -59,7 +59,7 @@ class Simulation
         robot.Move(_width, _height);
       }
       
-      Debug(i);
+      // Debug(i);
     }
 
     return _quadrants
@@ -67,7 +67,7 @@ class Simulation
       .Aggregate(1, (current, count) => current * count);
   }
 
-  private void Debug(int time)
+  public override string ToString()
   {
     var lines = new StringBuilder();
     
@@ -89,8 +89,8 @@ class Simulation
 
       lines.AppendLine(row.ToString());
     }
-    
-    File.WriteAllText(Path.Combine(AppContext.BaseDirectory, $"OUTPUT_{time}.txt"), lines.ToString());
+
+    return lines.ToString();
   }
 }
 
