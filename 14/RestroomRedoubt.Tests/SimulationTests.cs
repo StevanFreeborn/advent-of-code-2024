@@ -44,7 +44,7 @@ public class SimulationTests
     
     var result = Simulation.From(width, height, input).Run(times).MinBy(kvp => kvp.Value).Key;
 
-    await Assert.That(result).IsEqualTo(0);
+    await Assert.That(result).IsEqualTo(6644);
   }
   
   [Test]
