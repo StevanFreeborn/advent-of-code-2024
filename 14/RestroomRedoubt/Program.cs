@@ -17,13 +17,34 @@ if (File.Exists(args[0]) is false)
 var isPart2 = args.Length is 2 && args[1] is "part2";
 var input = await File.ReadAllLinesAsync(args[0]);
 
+// TODO: This still doesn't feel like the right API tho...even though it does solve
 var stopwatch = new Stopwatch();
 stopwatch.Start();
 
-var result = Simulation.From(101, 103, input).Run(101 * 103);
+var width = 101;
+var height = 103;
+var times = isPart2 
+  ? width * height 
+  : 100;
+
+var simulation = Simulation.From(width, height, input);
+var simulationResults = simulation.Run(times);
+var result = isPart2
+  ? simulationResults.MinBy(kvp => kvp.Value).Key
+  : simulation.SafetyFactor;
+
+var msg = isPart2
+  ? $"The Christmas tree appears after {result} seconds"
+  : $"The safety factor will be {result}";
 
 stopwatch.Stop();
-Console.WriteLine($"The safety factor will be {result}. ({stopwatch.ElapsedMilliseconds}ms)");
+Console.WriteLine($"{msg}. ({stopwatch.ElapsedMilliseconds}ms)");
+
+if (isPart2)
+{
+  simulation.Run(result);
+  simulation.PrintToConsole();
+}
 
 class Simulation
 {
@@ -33,7 +54,7 @@ class Simulation
   private readonly List<Quadrant> _quadrants;
   private List<int> RobotsPerQuadrant =>
     _quadrants.Select(quadrant => _robots.Count(r => r.IsIn(quadrant))).ToList();
-  private int SafetyFactor => RobotsPerQuadrant.Aggregate(1, (current, count) => current * count);
+  public int SafetyFactor => RobotsPerQuadrant.Aggregate(1, (current, count) => current * count);
 
   private Simulation(int width, int height, List<Robot> robots)
   {
@@ -52,18 +73,22 @@ class Simulation
   }
 
   public static Simulation From(int width, int height, string[] input) => new(width, height, input.Select(Robot.From).ToList());
-
-  public int Run(int times)
+  
+  public Dictionary<int, int> Run(int times)
   {
+    var safetyFactorMap = new Dictionary<int, int>();
+    
     for (int i = 0; i < times; i++)
     {
       foreach (var robot in _robots)
       {
         robot.Move(_width, _height);
       }
+      
+      safetyFactorMap.Add(i + 1, SafetyFactor);
     }
-    
-    return SafetyFactor;
+
+    return safetyFactorMap;
   }
 
   public override string ToString()

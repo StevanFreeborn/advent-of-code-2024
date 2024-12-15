@@ -23,20 +23,37 @@ public class SimulationTests
   }
 
   [Test]
-  public async Task Run_WhenCalledWithPuzzleInput_ItShouldReturnExpectedValue()
+  public async Task Run_WhenCalledWithPuzzleInput_ItShouldReturnPartOneSolution()
   {
     var input = await GetPuzzleInput();
-    
-    var result = Simulation.From(101, 103, input).Run(100);
 
-    await Assert.That(result).IsEqualTo(224554908);
+    var simulation = Simulation.From(101, 103, input);
+    simulation.Run(100);
+
+    await Assert.That(simulation.SafetyFactor).IsEqualTo(224554908);
+  }
+  
+  [Test]
+  public async Task Run_WhenCalledWithPuzzleInput_ItShouldReturnPartTwoSolution()
+  {
+    var input = await GetPuzzleInput();
+
+    var width = 101;
+    var height = 103;
+    var times = width * height;
+    
+    var result = Simulation.From(width, height, input).Run(times).MinBy(kvp => kvp.Value).Key;
+
+    await Assert.That(result).IsEqualTo(0);
   }
   
   [Test]
   public async Task Run_WhenCalledWithExampleInput_ItShouldReturnExpectedValue()
   {
-    var result = Simulation.From(11, 7, _exampleInput).Run(100);
+    var simulation = Simulation.From(11, 7, _exampleInput);
 
-    await Assert.That(result).IsEqualTo(12);
+    simulation.Run(100);
+
+    await Assert.That(simulation.SafetyFactor).IsEqualTo(12);
   }
 }

@@ -57,3 +57,4 @@ dotnet build
 | 11  | [Problem](./11/PROBLEM.md) | [Solution](./11/PlutonianPebbles/)     | Dictionary > List                                                                                      |
 | 12  | [Problem](./12/PROBLEM.md) | [Solution](./12/GardenGroups/)         | CORNERS == SIDES                                                                                       |
 | 13  | [Problem](./13/PROBLEM.md) | [Solution](./13/ClawContraption/)      | Yay for algebra                                                                                        |
+| 14  | [PROBLEM](./14/PROBLEM.md) | [Solution](./14/RestroomRedoubt/)      | Part 2 is not as complicated as you think. The answer is using the safety factor                       |
