@@ -4,8 +4,8 @@ record Position(int X, int Y, int Height)
 {
   public bool TryGetNextPosition(Direction direction, string[] grid, out Position nextPosition)
   {
-    var x = X + direction.XD;
-    var y = Y + direction.YD;
+    var x = X + direction.Xd;
+    var y = Y + direction.Yd;
 
     nextPosition = new(x, y, -1);
 
