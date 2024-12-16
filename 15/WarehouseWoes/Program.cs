@@ -180,11 +180,11 @@ record Direction(int Xd, int Yd)
   private const char RightCharacter = '>';
   private const char DownCharacter = 'v';
   private const char LeftCharacter = '<';
-  
-  public static readonly Direction Up = new(0, -1);
-  public static readonly Direction Down = new(0, 1);
-  public static readonly Direction Left = new(-1, 0);
-  public static readonly Direction Right = new(1, 0);
+
+  private static readonly Direction Up = new(0, -1);
+  private static readonly Direction Down = new(0, 1);
+  private static readonly Direction Left = new(-1, 0);
+  private static readonly Direction Right = new(1, 0);
 
   public static Direction From(char character)
   {
