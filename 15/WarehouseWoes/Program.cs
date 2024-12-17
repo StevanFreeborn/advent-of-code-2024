@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
+using System.Text;
 
 if (args.Length is 0)
 {
@@ -14,26 +14,37 @@ if (File.Exists(args[0]) is false)
 }
 
 var isPart2 = args.Length is 2 && args[1] is "part2";
-var input = await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, "INPUT.txt"));
+var input = await File.ReadAllTextAsync(args[0]);
 
 var stopwatch = new Stopwatch();
 stopwatch.Start();
 
-var inputParts = input.Split($"{Environment.NewLine}{Environment.NewLine}");
-
-var mapLines = inputParts[0].Split(Environment.NewLine);
-
-var directions = inputParts[1]
-  .Where(character => character.ToString() != Environment.NewLine && character.ToString() != string.Empty)
-  .Select(Direction.From)
-  .ToList();
-
-var result = WarehouseMap.From(mapLines)
-  .MoveRobot(directions)
-  .CalculateTotalBoxGpsCoordinates();
+var (map, directions) = PuzzleParser.Parse(input);
+var result = map.MoveRobot(directions).CalculateTotalBoxGpsCoordinates();
 
 stopwatch.Stop();
 Console.WriteLine($"The sum of all boxes' GPS coordinates is {result}. ({stopwatch.ElapsedMilliseconds}ms)");
+
+static class PuzzleParser
+{
+  public static (WarehouseMap Map, List<Direction> Directions) Parse(string input)
+  {
+    var inputParts = input.Split($"{Environment.NewLine}{Environment.NewLine}");
+    
+    var map = WarehouseMap.From(inputParts[0].Split(Environment.NewLine));
+    
+    var directions = inputParts[1]
+      .Where(character =>
+      {
+        var str = character.ToString();
+        return str != "\r" && str != "\n" && str != "\r\n";
+      })
+      .Select(Direction.From)
+      .ToList();
+    
+    return (map, directions);
+  }
+}
 
 class WarehouseMap
 {
@@ -42,21 +53,20 @@ class WarehouseMap
   private const char Box = 'O';
   private const char Empty = '.';
   
-  private readonly Dictionary<Position, char> _positions;
-  private Position RobotPosition => _positions.First(kvp => kvp.Value is Robot).Key;
-
+  public readonly Dictionary<Position, char> Positions;
+  
   private WarehouseMap(Dictionary<Position, char> positions)
   {
-    _positions = positions;
+    Positions = positions;
   }
 
   public static WarehouseMap From(string[] input)
   {
     var positions = new Dictionary<Position, char>();
     
-    for (int y = 0; y < input.Length; y++)
+    for (var y = 0; y < input.Length; y++)
     {
-      for (int x = 0; x < input[0].Length; x++)
+      for (var x = 0; x < input[0].Length; x++)
       {
         positions.Add(new(x, y), input[y][x]);
       }
@@ -67,11 +77,11 @@ class WarehouseMap
 
   public WarehouseMap MoveRobot(List<Direction> directions)
   {
-    var positions = _positions.ToDictionary();
-    var robotPosition = RobotPosition;
-
+    var positions = Positions.ToDictionary();
+    
     foreach (var direction in directions)
     {
+      var robotPosition = positions.First(kvp => kvp.Value is Robot).Key;
       var nextPosition = robotPosition.GetNextPosition(direction);
       var hasNextPosition = positions.TryGetValue(nextPosition, out var nextPositionValue);
 
@@ -80,36 +90,53 @@ class WarehouseMap
         continue;
       }
       
-      if (nextPositionValue is Wall)
+      switch (nextPositionValue)
       {
-        continue;
-      }
-
-      if (nextPositionValue is Empty)
-      {
-        positions[robotPosition] = Empty;
-        positions[nextPosition] = Robot;
-        continue;
-      }
-
-      if (nextPositionValue is Box && CanPushBox(nextPosition, direction, positions))
-      {
-        if (CanPushBox(nextPosition, direction, positions))
-        {
+        case Wall:
+          continue;
+        case Empty:
+          positions[robotPosition] = Empty;
+          positions[nextPosition] = Robot;
+          continue;
+        case Box when CanPushBox(nextPosition, direction, positions):
           positions = PushBox(nextPosition, direction, positions);
           positions[robotPosition] = Empty;
           positions[nextPosition] = Robot;
-        }
+          break;
       }
     }
     
     return new(positions);
   }
 
-  public int CalculateTotalBoxGpsCoordinates() => _positions
-    .Where(kvp => kvp.Value is Box)
-    .Select(kvp => kvp.Key)
-    .Sum(p => p.GpsCoordinate);
+  public int CalculateTotalBoxGpsCoordinates()
+  {
+    var boxes = Positions.Where(kvp => kvp.Value is Box).ToList();
+    return boxes.Select(kvp => kvp.Key).Sum(p => p.GpsCoordinate);
+  }
+
+  public override string ToString()
+  {
+    var maxX = Positions.Select(kvp => kvp.Key).Max(p => p.X);
+    var maxY = Positions.Select(kvp => kvp.Key).Max(p => p.Y);
+
+    var map = new StringBuilder();
+
+    for (var y = 0; y <= maxY; y++)
+    {
+      var row = new StringBuilder();
+      
+      for (var x = 0; x <= maxX; x++)
+      {
+        var value = Positions[new(x, y)];
+        row.Append(value);
+      }
+
+      map.AppendLine(row.ToString());
+    }
+
+    return map.ToString();
+  }
 
   private static bool CanPushBox(Position boxPosition, Direction direction, Dictionary<Position, char> positions)
   {
@@ -138,9 +165,10 @@ class WarehouseMap
 
   private static Dictionary<Position, Char> PushBox(Position boxPosition, Direction direction, Dictionary<Position, char> currentPositions)
   {
+    var positions = currentPositions.ToDictionary();
+    
     while (true)
     {
-      var positions = currentPositions.ToDictionary();
       var nextPosition = boxPosition.GetNextPosition(direction);
       var hasNextPosition = positions.TryGetValue(nextPosition, out var nextPositionValue);
 
@@ -152,11 +180,9 @@ class WarehouseMap
       if (nextPositionValue is Box)
       {
         boxPosition = nextPosition;
-        currentPositions = positions;
         continue;
       }
-
-      positions[boxPosition] = Empty;
+      
       positions[nextPosition] = Box;
 
       return positions;

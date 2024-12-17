@@ -117,6 +117,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseWoes.Tests", "15\WarehouseWoes.Tests\WarehouseWoes.Tests.csproj", "{055CE647-AEFA-4501-B518-D16FF400E3D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16", "16", "{C50481FF-1766-4C51-BEE3-91BEC5642818}"
+	ProjectSection(SolutionItems) = preProject
+		16\INPUT.txt = 16\INPUT.txt
+		16\PROBLEM.md = 16\PROBLEM.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReindeerMaze", "16\ReindeerMaze\ReindeerMaze.csproj", "{5610FB67-037B-4C87-8D5D-E86D9D7DDB51}"
 EndProject
