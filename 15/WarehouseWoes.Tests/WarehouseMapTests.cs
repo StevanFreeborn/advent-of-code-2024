@@ -44,6 +44,70 @@ public class WarehouseMapTests
   ];
 
   [Test]
+  [MethodDataSource(nameof(ScaleTestCases))]
+  public async Task Scale_WhenCalled_ItShouldReturnExpectedMap(ScaleTestCase testCase)
+  {
+    var expected = WideWarehouseMap.From(testCase.ExpectedMap);
+
+    var result = WarehouseMap.From(testCase.MapInput).Scale();
+
+    await Assert.That(result.Positions).IsEquivalentTo(expected.Positions);
+  }
+
+  public static IEnumerable<Func<ScaleTestCase>> ScaleTestCases()
+  {
+    yield return () => new(
+      [
+        "##########",
+        "#..O..O.O#",
+        "#......O.#",
+        "#.OO..O.O#",
+        "#..O@..O.#",
+        "#O#..O...#",
+        "#O..O..O.#",
+        "#.OO.O.OO#",
+        "#....O...#",
+        "##########",
+      ],
+      [
+        "####################",
+        "##....[]....[]..[]##",
+        "##............[]..##",
+        "##..[][]....[]..[]##",
+        "##....[]@.....[]..##",
+        "##[]##....[]......##",
+        "##[]....[]....[]..##",
+        "##..[][]..[]..[][]##",
+        "##........[]......##",
+        "####################",
+      ]
+    );
+    
+    yield return () => new(
+      [
+        "#######",
+        "#...#.#",
+        "#.....#",
+        "#..OO@#",
+        "#..O..#",
+        "#.....#",
+        "#######",
+      ],
+      [
+        "##############",
+        "##......##..##",
+        "##..........##",
+        "##....[][]@.##",
+        "##....[]....##",
+        "##..........##",
+        "##############",
+      ]
+    );
+  }
+  
+  public record ScaleTestCase(string[] MapInput, string[] ExpectedMap);
+
+  [Test]
   [MethodDataSource(nameof(MoveTestCases))]
   public async Task Move_WhenCalled_ItShouldMoveValuesToExpectedPositions(MoveTestCase testCase)
   {

@@ -27,4 +27,15 @@ public class PuzzleParserTests
 
     await Assert.That(result).IsEqualTo(1318523);
   }
+  
+  [Test]
+  public async Task PartTwoSolution_WhenGivenPuzzleInput_ItShouldReturnExpectedSolution()
+  {
+    var input = await GetPuzzleInput();
+    var (map, directions) = PuzzleParser.Parse(input);
+
+    var result = map.Scale().MoveRobot(directions).CalculateTotalBoxGpsCoordinates();
+
+    await Assert.That(result).IsEqualTo(1337648);
+  }
 }

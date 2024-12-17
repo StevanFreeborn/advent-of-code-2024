@@ -36,8 +36,7 @@ dotnet run -- <path-to-input-file> part2
 You can also build the projects and run the executables directly.
 
 ```bash
-dotnet build
-./bin/Debug/net9.0/<project-name> <path-to-input-file>
+dotnet build ./bin/Debug/net9.0/<project-name> <path-to-input-file>
 ```
 
 ## Challenges
@@ -58,3 +57,4 @@ dotnet build
 | 12  | [Problem](./12/PROBLEM.md) | [Solution](./12/GardenGroups/)         | CORNERS == SIDES                                                                                       |
 | 13  | [Problem](./13/PROBLEM.md) | [Solution](./13/ClawContraption/)      | Yay for algebra                                                                                        |
 | 14  | [PROBLEM](./14/PROBLEM.md) | [Solution](./14/RestroomRedoubt/)      | Part 2 is not as complicated as you think. The answer is using the safety factor                       |
+| 15  | [PROBLEM](./15/PROBLEM.md) | [Solution](./15/WarehouseWoes/)        | This breaks my previous star record!                                                                   |
