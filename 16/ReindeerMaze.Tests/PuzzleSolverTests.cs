@@ -18,6 +18,16 @@ public class PuzzleSolverTests
   }
   
   [Test]
+  public async Task PartTwoSolution_WhenCalledWithInput_ItShouldReturnExpectedValue()
+  {
+    var input = await GetPuzzleInput();
+    
+    var result = PuzzleSolver.Solve(input, true);
+
+    await Assert.That(result).IsEqualTo(575);
+  }
+  
+  [Test]
   [MethodDataSource(nameof(SolveTestCases))]
   public async Task Solve_WhenCalledWithInput_ItShouldReturnExpectedValue(SolveTestCase testCase)
   {
