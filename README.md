@@ -58,3 +58,4 @@ dotnet build ./bin/Debug/net9.0/<project-name> <path-to-input-file>
 | 13  | [Problem](./13/PROBLEM.md) | [Solution](./13/ClawContraption/)      | Yay for algebra                                                                                        |
 | 14  | [PROBLEM](./14/PROBLEM.md) | [Solution](./14/RestroomRedoubt/)      | Part 2 is not as complicated as you think. The answer is using the safety factor                       |
 | 15  | [PROBLEM](./15/PROBLEM.md) | [Solution](./15/WarehouseWoes/)        | This breaks my previous star record!                                                                   |
+| 16  | [PROBLEM](./16/PROBLEM.md) | [Solution](./16/ReindeerMaze/)         | Bruh....part 2 can fuck off...but so glad I did not give up on it.                                     |
