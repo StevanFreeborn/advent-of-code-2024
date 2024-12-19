@@ -103,7 +103,7 @@ record Point(int RowIndex, int ColIndex)
 
 record Slope(int Rise, int Run);
 
-class Line(Point start, Point end, string[] Map)
+class Line(Point start, Point end, string[] map)
 {
   private readonly Slope _slope = new(end.RowIndex - start.RowIndex, end.ColIndex - start.ColIndex);
   
@@ -116,7 +116,7 @@ class Line(Point start, Point end, string[] Map)
     {
       new(end.RowIndex - doubledRise, end.ColIndex - doubledRun),
       new(start.RowIndex + doubledRise, start.ColIndex + doubledRun),
-    }.Where(p => p.IsOnMap(Map)).ToList();
+    }.Where(p => p.IsOnMap(map)).ToList();
   }
 
   public List<Point> GetPart2Antinodes()
@@ -127,7 +127,7 @@ class Line(Point start, Point end, string[] Map)
     // start antenna back
     var currentPoint = start;
 
-    while (currentPoint.IsOnMap(Map))
+    while (currentPoint.IsOnMap(map))
     {
       antinodes.Add(currentPoint);
       currentPoint = new(currentPoint.RowIndex - _slope.Rise, currentPoint.ColIndex - _slope.Run);
@@ -137,7 +137,7 @@ class Line(Point start, Point end, string[] Map)
     // end antenna out
     currentPoint = end;
 
-    while (currentPoint.IsOnMap(Map))
+    while (currentPoint.IsOnMap(map))
     {
       antinodes.Add(currentPoint);
       currentPoint = new(currentPoint.RowIndex + _slope.Rise, currentPoint.ColIndex + _slope.Run);

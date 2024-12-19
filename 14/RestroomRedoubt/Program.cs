@@ -155,10 +155,10 @@ partial record Robot
     );
   }
 
-  public (int X, int Y) Move(int MaxX, int MaxY)
+  public (int X, int Y) Move(int maxX, int maxY)
   {
-    PositionX = (PositionX + VelocityX + MaxX) % MaxX;
-    PositionY = (PositionY + VelocityY + MaxY) % MaxY;
+    PositionX = (PositionX + VelocityX + maxX) % maxX;
+    PositionY = (PositionY + VelocityY + maxY) % maxY;
 
     return (PositionX, PositionY);
   }
