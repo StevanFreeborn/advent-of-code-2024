@@ -18,23 +18,27 @@ var input = await File.ReadAllTextAsync(args[0]);
 var stopwatch = new Stopwatch();
 stopwatch.Start();
 
-var result = Computer.From(input).RunProgram();
+var computer = Computer.From(input);
+
+var msg = isPart2
+  ? $"The program outputs a copy at itself when the A register is: {computer.FindCopy()}"
+  : $"The output of the program is {computer.RunProgram()}";
 
 stopwatch.Stop();
-Console.WriteLine($"The output of the program is {result}. ({stopwatch.ElapsedMilliseconds}ms)");
+Console.WriteLine($"{msg}. ({stopwatch.ElapsedMilliseconds}ms)");
 
 class Computer
 {
   private readonly int[] _program;
   private readonly Dictionary<int, Func<int, bool>> _instructions;
   
-  private int _aRegister;
-  private int _bRegister;
-  private int _cRegister;
+  private long _aRegister;
+  private long _bRegister;
+  private long _cRegister;
   private int _instructionPointer;
-  private readonly List<int> _output = [];
+  private readonly List<long> _output = [];
 
-  private Computer(int a, int b, int c, int[] program)
+  private Computer(long a, long b, long c, int[] program)
   {
     _aRegister = a;
     _bRegister = b;
@@ -107,7 +111,22 @@ class Computer
     return string.Join(',', _output);
   }
 
-  private int GetComboOperand(int operand) => operand switch
+  public long FindCopy()
+  {
+    long lowestInitialValue = _aRegister;
+    var targetOutput = string.Join(',', _program);
+    string output;
+
+    do
+    {
+      lowestInitialValue += 1;
+      output = new Computer(lowestInitialValue, _bRegister, _cRegister, _program).RunProgram();
+    } while (output != targetOutput);
+
+    return lowestInitialValue;
+  }
+
+  private long GetComboOperand(int operand) => operand switch
   {
     0 or 1 or 2 or 3 => operand,
     4 => _aRegister,
